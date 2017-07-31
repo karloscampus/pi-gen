@@ -7,3 +7,4 @@ SKIP
 *-pc
 apt-cacher-ng/
 config_wifi
+.idea
