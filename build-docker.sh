@@ -56,6 +56,7 @@ if [ "$CONTAINER_EXISTS" != "" ]; then
 	trap "echo 'got CTRL+C... please wait 5s';docker stop -t 5 ${CONTAINER_NAME}_cont" SIGINT SIGTERM
 	time $DOCKER run --rm --privileged \
 		--volumes-from="${CONTAINER_NAME}" --name "${CONTAINER_NAME}_cont" \
+		--env-file config_wifi \
 		-e IMG_NAME=${IMG_NAME}\
 		pi-gen \
 		bash -e -o pipefail -c "dpkg-reconfigure qemu-user-static &&
@@ -67,6 +68,7 @@ else
 	$DOCKER run --name "${CONTAINER_NAME}" --privileged \
 		-e IMG_NAME=${IMG_NAME}\
 		-v "$(pwd)/deploy:/pi-gen/deploy" \
+		--env-file config_wifi \
 		"${config_mount[@]}" \
 		pi-gen \
 		bash -e -o pipefail -c "dpkg-reconfigure qemu-user-static &&
