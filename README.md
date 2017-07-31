@@ -1,24 +1,5 @@
 # pi-gen
 
-_Tool used to create the raspberrypi.org Raspbian images_
-
-
-### TODO
-1. Documentation
-
-
-## Dependencies
-
-On Debian-based systems:
-
-```bash
-apt-get install quilt parted realpath qemu-user-static debootstrap zerofree pxz zip \
-dosfstools bsdtar libcap2-bin grep rsync xz-utils
-```
-
-The file `depends` contains a list of tools needed.  The format of this
-package is `<tool>[:<debian-package>]`.
-
 
 ## Config
 
@@ -167,9 +148,23 @@ from `./stage2` (if building a minimal system).
 echo "IMG_NAME='Raspbian'" > config
 touch ./stage3/SKIP ./stage4/SKIP ./stage5/SKIP
 rm stage4/EXPORT*
-sudo ./build.sh  # or ./build-docker.sh
+./build-docker.sh
 ```
 
 If you wish to build further configurations upon (for example) the lite
 system, you can also delete the contents of `./stage3` and `./stage4` and
 replace with your own contents in the same format.
+
+### CONFIG WIFI
+
+```bash
+# Example for add WIFI SSID and PSK
+echo "IMG_NAME='Raspbian'" > config
+cat > outfile.txt <<EOF
+WIFI_SSID=YOUR_SSID
+WIFI_PSK=YOUR_Passphrase
+EOF
+touch ./stage3/SKIP ./stage4/SKIP ./stage5/SKIP
+rm stage4/EXPORT*
+./build-docker.sh
+```
