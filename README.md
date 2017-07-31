@@ -160,7 +160,7 @@ replace with your own contents in the same format.
 ```bash
 # Example for add WIFI SSID and PSK
 echo "IMG_NAME='Raspbian'" > config
-cat > outfile.txt <<EOF
+cat > config_wifi <<EOF
 WIFI_SSID=YOUR_SSID
 WIFI_PSK=YOUR_Passphrase
 EOF
